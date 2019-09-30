@@ -22,4 +22,17 @@ $(document)
         }
 
         // code to be implemented
+        $('#button').click(function () {
+            $('ol').append('<li id=' + generateUUID() + '>' +
+                '<input name="done-todo" type="checkbox" class="done-todo">' +
+                $('.input-text').val());
+        });
+
+        $('input[name="done-todo"]').click(function () {
+            .toggleClass('checked');
+        });
+
+        $('#filters').click(function () {
+            $('li').filter('li input:checked').hide();
+        });
     });
