@@ -23,16 +23,29 @@ $(document)
 
         // code to be implemented
         $('#button').click(function () {
-            $('ol').append('<li id=' + generateUUID() + '>' +
+            $('ol').append('<li id=' + generateUUID() + ' class="">' +
                 '<input name="done-todo" type="checkbox" class="done-todo">' +
-                $('.input-text').val());
+                $('.input-text').val() + '</li>');
         });
 
         $('input[name="done-todo"]').click(function () {
-            .toggleClass('checked');
+            if ($('input[name="done-todo"].checked')){
+                $(this).closest('li').toggleClass('checked');
+            } else {
+                $(this).closest('li').toggleClass('""');
+            }
         });
 
-        $('#filters').click(function () {
-            $('li').filter('li input:checked').hide();
+        $('#filters li a').click(function () {
+            $('#filters li a').removeClass('selected');
+            $(this).addClass('selected');
+
+            if ($('ul li a[data-filter="active"]')) {
+                $('ol li').filter('.checked').hide();
+            } else if ($('ul li a[data-filter="complete"]')) {
+                $('ol li').filter('.unchecked').hide();
+            } else {
+                $('ol li').show();
+            }
         });
     });
