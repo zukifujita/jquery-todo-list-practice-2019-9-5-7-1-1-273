@@ -26,26 +26,26 @@ $(document)
             $('ol').append('<li id=' + generateUUID() + ' class="">' +
                 '<input name="done-todo" type="checkbox" class="done-todo">' +
                 $('.input-text').val() + '</li>');
+
+            $('.input-text').val('');
         });
 
-        $('input[name="done-todo"]').click(function () {
-            if ($('input[name="done-todo"].checked')){
-                $(this).closest('li').toggleClass('checked');
-            } else {
-                $(this).closest('li').toggleClass('""');
-            }
+        $(document).on('click', 'input[name="done-todo"]', function (event) {
+            $(this).parent().toggleClass('checked');
         });
 
         $('#filters li a').click(function () {
-            $('#filters li a').removeClass('selected');
+            $('#filters').find('a').removeClass('selected');
             $(this).addClass('selected');
 
-            if ($('ul li a[data-filter="active"]')) {
-                $('ol li').filter('.checked').hide();
-            } else if ($('ul li a[data-filter="complete"]')) {
-                $('ol li').filter('.unchecked').hide();
-            } else {
+            if ($(this).data('filter') == 'all') {
                 $('ol li').show();
+            } if ($(this).data('filter') == 'active') {
+                $("ol li").filter(".checked").hide();
+                $("ol li").not(".checked").show();
+            } else if ($(this).data('filter') == 'complete') {
+                $("ol li").filter(".checked").show();
+                $("ol li").not(".checked").hide();
             }
         });
     });
