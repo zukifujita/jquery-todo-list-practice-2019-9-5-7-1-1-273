@@ -24,8 +24,8 @@ $(document)
         // code to be implemented
         $('#button').click(function () {
             $('ol').append('<li id=' + generateUUID() + ' class="">' +
-                '<input name="done-todo" type="checkbox" class="done-todo">' +
-                $('.input-text').val() + '</li>');
+                '<input name="done-todo" type="checkbox" class="done-todo"> <span name="editContent" contenteditable="true">' +
+                $('.input-text').val() + '</span> </li>');
 
             $('.input-text').val('');
         });
@@ -47,5 +47,17 @@ $(document)
                 $("ol li").filter(".checked").show();
                 $("ol li").not(".checked").hide();
             }
+        });
+
+        $('span[name="editContent"]').on('dblclick', function () {
+            $('span[name="editContent"]').on('keypress', function (e) {
+                if (e.which == 13) {
+                    $('span').attr("contenteditable", false);
+                }
+            });
+        });
+
+        $('span[name="editContent"]').on('blur', function () {
+            $('span[name="editContent"]').attr("contenteditable", false);
         });
     });
